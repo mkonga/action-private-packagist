@@ -1,0 +1,15 @@
+name: "Configure Private Packagist"
+description: "Configures your Private Packagist token for authentication"
+inputs:
+  private-packagist-token:
+    description: Your private packagist token, if you need to use one.
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure Private Packagist
+      if: inputs.private-packagist-token != ''
+      run: composer config --global --auth http-basic.repo.packagist.com token ${{ inputs.private-packagist-token }}
+      shell: bash
